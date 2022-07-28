@@ -13,7 +13,7 @@ class AutentificarUsuarioService{
 
         const usuario = await prismaClient.usuario.findFirst({
             where:{
-                user: user
+                user : user
             }
         })  
         if(!usuario){
@@ -30,7 +30,7 @@ class AutentificarUsuarioService{
             nome: usuario.nome,
             user: usuario.user
         },
-        process.env.JWT_SECRET,
+        process.env.JWT_SECRETE,
         {
             subject: usuario.id,
             expiresIn: '30d'

@@ -39,7 +39,7 @@ model Cliente{
 model Agendamento{
 
   id String @id @default (uuid())
-  data DateTime
+  data String
   horario String 
   descricao String
 
