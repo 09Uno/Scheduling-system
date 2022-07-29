@@ -5,7 +5,7 @@ import { DetalhesUsuarioService } from "../../services/usuarios/detalhesUsuarios
 class DetalhesUsuarioController{
     async handle(req: Request, res: Response){
 
-        const user_id = req.user_id
+        const user_id = req.body as string
 
         const detalhesUsuariosService = new DetalhesUsuarioService()
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CriarAgendamentosService } from "../../services/agendamentos/criarAgendamentosService";
 
-class CriarAgendamentosController{
+class CriarAgendamentosController{      
 
     async handle(req:Request, res:Response){
 
