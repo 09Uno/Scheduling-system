@@ -39,10 +39,11 @@ model Cliente{
 model Agendamento{
 
   id String @id @default (uuid())
-  data String
-  horario String 
+  data DateTime? @db.Date
+  horario DateTime? @db.Time(6)	
   descricao String
-
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
   cliente Cliente @relation(fields: [cliente_id], references:[id])
 
   @@map("agendamentos")

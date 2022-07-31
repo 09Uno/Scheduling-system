@@ -3,9 +3,9 @@ import prismaClient from '../../prisma/prisma';
 
 
 interface AgendamentoRequest {
-    data: string;
-    horario: string;
-    descricao: string
+    data: Date;
+    horario: Date ;
+    descricao: string;
     cliente_id: string;
 }
 

@@ -10,7 +10,7 @@ class DetalhesAgendamentoController{
 
         const detalhesAgendamentoService = new DetalhesAgendamentoService()
 
-        const agendamento = detalhesAgendamentoService.execute({agendamento_id})
+        const agendamento = await detalhesAgendamentoService.execute({agendamento_id})
 
         return res.json(agendamento)
     }

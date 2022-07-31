@@ -9,6 +9,8 @@ import { DetalhesUsuarioController } from './controllers/usuarios/detalhesUsuari
 import { CriarAgendamentosController } from './controllers/agendamentos/criarAgendamentosController';
 import { DetahesClientesController } from './controllers/clientes/detalhesClientesController';
 import { DetalhesAgendamentoController } from './controllers/agendamentos/detalhesAgendamentosController';
+import { ListarAgendamentosController } from './controllers/agendamentos/listarAgendamentosController';
+import { ApagarAgendamentosController } from './controllers/agendamentos/apagarAgendamentosController';
 
 const router = Router()
 
@@ -27,7 +29,9 @@ router.get('/cliente', EstaAutentificado ,new DetahesClientesController().handle
 router.post('/cliente',EstaAutentificado , new CriarClienteController().handle)
 
 
-router.post('/agendar', new CriarAgendamentosController().handle)
-router.get('/agendar',  new DetalhesAgendamentoController().handle)
+router.post('/agendar', EstaAutentificado, new CriarAgendamentosController().handle)
+router.get('/agendar/detalhes', EstaAutentificado ,new DetalhesAgendamentoController().handle)
+router.get('/agendar/listar', EstaAutentificado, new ListarAgendamentosController().handle)
+router.delete('/agendar', EstaAutentificado, new ApagarAgendamentosController().handle)
 
 export {router}
