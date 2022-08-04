@@ -21,7 +21,7 @@ router.get('/teste2', (req: Request, res: Response)=>{
 
 
 router.post('/usuario', new CriarUsuarioController().handle )
-router.get('/detalhes/usuario', EstaAutentificado, new DetalhesUsuarioController().handle)
+router.get('/me', EstaAutentificado, new DetalhesUsuarioController().handle)
 router.post('/autentificar', new AutentificarUsuarioController().handle)
 
 
