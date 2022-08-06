@@ -16,7 +16,9 @@ class DetalhesAgendamentoService{
                 data: true,
                 horario: true,
                 descricao: true,
-                cliente_id: true
+                cliente_id: true,
+                cliente : true,
+                
             }
         })
 

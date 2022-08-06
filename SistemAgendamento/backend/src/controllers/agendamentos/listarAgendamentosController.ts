@@ -5,11 +5,10 @@ class ListarAgendamentosController{
 
     async handle(req: Request, res: Response){
 
-        const data = req.query.data as string 
 
         const listarAgendamentosService = new ListarAgendamentosService();
 
-        const listar = await listarAgendamentosService.execute({data})
+        const listar = await listarAgendamentosService.execute()
 
 
         return res.json(listar)

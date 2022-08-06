@@ -1,26 +1,27 @@
 import prismaClient from "../../prisma/prisma";
 
-interface ListarAgendamentosRequest{
-    data: string
-}
 
+class ListarAgendamentosService {
 
-class ListarAgendamentosService{
-
-    async execute({data}: ListarAgendamentosRequest){
+    async execute() {
 
         const agendamentos = await prismaClient.agendamento.findMany({
-            where:{
-                data : data
-            },orderBy:{   
-                horario: 'asc',
-            }
+            where: {
+                draft: true
+            }, orderBy: [
+                {
+                    data: 'asc',
+                },
+                {
+                    horario: 'asc'
+                }
+            ],
         })
 
         return agendamentos
     }
-    
+
 
 }
 
-export {ListarAgendamentosService}
+export { ListarAgendamentosService }

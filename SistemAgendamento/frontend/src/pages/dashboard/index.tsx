@@ -1,12 +1,124 @@
+import { useState } from "react";
+import { FiRefreshCcw } from "react-icons/fi";
+import { Header } from "../../components/header/header";
 import { setupAPICliente } from "../../services/api";
 import { CanSSRAuth } from "../../utils/canSSRAuth";
+import styles from "./styles.module.scss"
+import moment from 'moment';
+import { ModalAgendamentos } from "../../components/modalAgendamento/index";
+import Modal from "react-modal"
 
-export default function Dashboard(){
-    return(
+type AgendamentosProps = {
+    id: string;
+    data: string;
+    horario: string;
+    cliente_id: string;
+
+}
+
+interface HomeProps {
+
+    agendamentos: AgendamentosProps[];
+
+}
+
+export type AgendamentosDetalhesProps = {
+    id: string;
+    data: string;
+    horario: string
+    cliente_id: string
+    cliente: {
+        id: string;
+        nome: string;
+        telefone: string;
+        cpf: string
+    }
+}
+
+
+
+export default function Dashboard({ agendamentos }: HomeProps) {
+
+    const [agendamentoList, setAgendamentoList] = useState(agendamentos || [])
+
+    const [modalItem, setModalItem] = useState<AgendamentosDetalhesProps[]>()
+    const [modalVisible, setModalVisible] = useState(false)
+
+    function handleCloseModal() {
+        setModalVisible(false);
+    }
+
+
+    async function handleModal(id_agendamento: string) {
+
+        const api = setupAPICliente()
+
+        const response = await api.get('/agendar/detalhes', {
+            params: {
+
+                id: id_agendamento,
+            }
+        })
+        setModalItem(response.data)
+        setModalVisible(true)
+
+
+
+    }
+
+    Modal.setAppElement('#__next');
+
+
+    return (
         <>
-        
-        
-        <h1>asdasd</h1>
+            <Header />
+            <div>
+                <main className={styles.container}>
+                    <div className={styles.containerCenter}>
+                        <div className={styles.Header}>
+                            <h1>Horários Agendados</h1>
+                            <button className={styles.refresh}>
+                                <FiRefreshCcw size={20} color="white" />
+                            </button>
+                        </div>
+
+                        <article className={styles.listarAgendamentos}>
+
+
+                            {agendamentoList.map(item => (
+
+                                <section key={item.id} className={styles.agendamentos}>
+                                    <button onClick={()=> handleModal(item.id)}>
+                                        <div className={styles.tag}></div>
+                                        <span className={styles.cliente}>{item.cliente_id}</span>
+                                        <span>{moment(item.data).format("DD-MM-YYYY")}| {moment(item.horario).format("HH:MM")} </span>
+                                    </button>
+
+                                    
+                                </section>
+
+
+                            ))}
+
+
+                        </article>
+
+
+                    </div>
+                </main>
+
+                {modalVisible && (
+                    <ModalAgendamentos 
+
+                        isOpen={modalVisible}
+                        onRequestClose={handleCloseModal}
+                        agendamento={modalItem}
+
+                    />
+                )}
+
+            </div>
+
         </>
     )
 }
@@ -15,12 +127,11 @@ export const getServerSideProps = CanSSRAuth(async (ctx) => {
 
     const apiClient = setupAPICliente(ctx);
 
-    const response = await apiClient.get('/')
-
+    const response = await apiClient.get('/agendar/listar')
 
     return {
         props: {
-            orders: response.data
+            agendamentos: response.data
         }
     }
 })

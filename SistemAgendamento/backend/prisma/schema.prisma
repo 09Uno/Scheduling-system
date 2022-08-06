@@ -42,6 +42,7 @@ model Agendamento{
   data DateTime? @db.Date
   horario DateTime? @db.Time(6)	
   descricao String
+  draft Boolean @default(true) 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   cliente Cliente @relation(fields: [cliente_id], references:[id])
