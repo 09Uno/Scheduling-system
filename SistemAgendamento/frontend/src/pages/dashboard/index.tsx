@@ -27,6 +27,8 @@ export type AgendamentosDetalhesProps = {
     data: string;
     horario: string
     cliente_id: string
+    descricao: string
+    agendamento_id: string
     cliente: {
         id: string;
         nome: string;
@@ -44,6 +46,7 @@ export default function Dashboard({ agendamentos }: HomeProps) {
     const [modalItem, setModalItem] = useState<AgendamentosDetalhesProps[]>()
     const [modalVisible, setModalVisible] = useState(false)
 
+
     function handleCloseModal() {
         setModalVisible(false);
     }
@@ -56,7 +59,7 @@ export default function Dashboard({ agendamentos }: HomeProps) {
         const response = await api.get('/agendar/detalhes', {
             params: {
 
-                id: id_agendamento,
+                agendamento_id: id_agendamento,
             }
         })
         setModalItem(response.data)
@@ -85,20 +88,30 @@ export default function Dashboard({ agendamentos }: HomeProps) {
                         <article className={styles.listarAgendamentos}>
 
 
-                            {agendamentoList.map(item => (
-
-                                <section key={item.id} className={styles.agendamentos}>
-                                    <button onClick={()=> handleModal(item.id)}>
-                                        <div className={styles.tag}></div>
-                                        <span className={styles.cliente}>{item.cliente_id}</span>
-                                        <span>{moment(item.data).format("DD-MM-YYYY")}| {moment(item.horario).format("HH:MM")} </span>
-                                    </button>
-
-                                    
-                                </section>
 
 
-                            ))}
+                                    {agendamentoList.map(item => (
+
+                                        <section key={item.id} className={styles.agendamentos}>
+                                            <button onClick={() => handleModal(item.id)}>
+                                                <div className={styles.tag}></div>
+                                                <span className={styles.cliente}>{moment(item.data).format(" DD/MM/YYYY ")}</span>
+                                                <span> {moment(item.horario).format("HH: MM")} </span>
+
+                                            </button>
+
+
+                                        </section>
+
+
+                                    ))}
+
+
+
+
+
+
+
 
 
                         </article>
@@ -108,7 +121,7 @@ export default function Dashboard({ agendamentos }: HomeProps) {
                 </main>
 
                 {modalVisible && (
-                    <ModalAgendamentos 
+                    <ModalAgendamentos
 
                         isOpen={modalVisible}
                         onRequestClose={handleCloseModal}

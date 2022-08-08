@@ -13,6 +13,7 @@ class DetalhesAgendamentoService{
             where:{
                 id: agendamento_id
             },select:{
+                id: true,
                 data: true,
                 horario: true,
                 descricao: true,
