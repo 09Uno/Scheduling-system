@@ -7,6 +7,7 @@ import styles from "./styles.module.scss"
 import moment from 'moment';
 import { ModalAgendamentos } from "../../components/modalAgendamento/index";
 import Modal from "react-modal"
+import { api } from "../../services/apiClient";
 
 type AgendamentosProps = {
     id: string;
@@ -64,10 +65,11 @@ export default function Dashboard({ agendamentos }: HomeProps) {
         })
         setModalItem(response.data)
         setModalVisible(true)
-
-
-
     }
+
+
+
+
 
     Modal.setAppElement('#__next');
 
@@ -93,7 +95,9 @@ export default function Dashboard({ agendamentos }: HomeProps) {
                                     {agendamentoList.map(item => (
 
                                         <section key={item.id} className={styles.agendamentos}>
+
                                             <button onClick={() => handleModal(item.id)}>
+                                                
                                                 <div className={styles.tag}></div>
                                                 <span className={styles.cliente}>{moment(item.data).format(" DD/MM/YYYY ")}</span>
                                                 <span> {moment(item.horario).format("HH: MM")} </span>
@@ -105,10 +109,6 @@ export default function Dashboard({ agendamentos }: HomeProps) {
 
 
                                     ))}
-
-
-
-
 
 
 

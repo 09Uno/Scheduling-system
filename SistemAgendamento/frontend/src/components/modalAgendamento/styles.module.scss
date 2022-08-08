@@ -1,21 +1,26 @@
-
-
-.container{
+.container {
     display: flex;
     position: relative;
     flex-direction: column;
     align-items: flex-start;
-    line-height: 2rem; 
+    line-height: 2rem;
 
-    .react-modal-close{
+    .react-modal-close {
         width: 30px;
         height: 30px;
     }
 
-    .titulo{
+    .titulo {
         margin-bottom: 1rem;
     }
-    .descricao{
+
+    .icons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .descricao {
 
         border: solid black 0.1px;
         padding: 10px;
