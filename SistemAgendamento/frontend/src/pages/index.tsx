@@ -64,7 +64,7 @@ export default function Home() {
             <div className={styles.ContainerCenter}>
 
 
-                <div className={styles.login}>
+                <main className={styles.login}>
                     <Link href='/'>
                         <Image src={logo} width={190} height={190} alt=""/>
                     </Link>
@@ -96,7 +96,7 @@ export default function Home() {
                     <Link href="/cadastro">
                         <a className={styles.text}>Fazer Cadastro</a>
                     </Link>
-                </div>
+                </main>
 
 
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiRefreshCcw } from "react-icons/fi";
 import { Header } from "../../components/header/header";
 import { setupAPICliente } from "../../services/api";
@@ -11,7 +11,6 @@ import { api } from "../../services/apiClient";
 
 type AgendamentosProps = {
     id: string;
-    data: string;
     horario: string;
     cliente_id: string;
 
@@ -25,7 +24,6 @@ interface HomeProps {
 
 export type AgendamentosDetalhesProps = {
     id: string;
-    data: string;
     horario: string
     cliente_id: string
     descricao: string
@@ -48,12 +46,15 @@ export default function Dashboard({ agendamentos }: HomeProps) {
     const [modalVisible, setModalVisible] = useState(false)
 
 
-    function handleCloseModal() {
+
+    function handleCloseModal(): void {
         setModalVisible(false);
     }
 
 
     async function handleModal(id_agendamento: string) {
+
+
 
         const api = setupAPICliente()
 
@@ -65,10 +66,72 @@ export default function Dashboard({ agendamentos }: HomeProps) {
         })
         setModalItem(response.data)
         setModalVisible(true)
+
+    }
+
+    async function atualizar() {
+        const api = setupAPICliente()
+        const response = await api.get('/agendar/detalhes')
+        setAgendamentoList(response.data)
     }
 
 
 
+
+
+
+    async function apagarAgendamento(id_delete: string) {
+
+        const apiDelete = await api.delete('/agendar', {
+
+            params: {
+                agendamento_id: id_delete,
+            }
+
+        })
+
+    }
+
+    async function apagar(id_delete: string) {
+
+        apagarAgendamento(id_delete);
+
+
+    }
+
+
+    useEffect(() => {
+
+
+        agendamentoList.forEach(element => {
+            moment.locale('pt-br');
+            const now = new Date();
+
+            
+            const hora = moment.utc(element.horario).format('DD-MM-YYYY HH:mm')
+            const hora2 = moment(now).format('DD-MM-YYYY HH:mm')
+
+
+            const dataCompare = new Date(hora)
+            const nowCompare = new Date(hora2)
+
+            
+
+
+
+            if (nowCompare > dataCompare) {
+                apagar(element.id)
+
+            }
+            
+
+        });
+
+    }, [agendamentoList]
+    )
+
+
+    useEffect(() => { atualizar() }, [agendamentoList, atualizar()])
 
 
     Modal.setAppElement('#__next');
@@ -81,34 +144,40 @@ export default function Dashboard({ agendamentos }: HomeProps) {
                 <main className={styles.container}>
                     <div className={styles.containerCenter}>
                         <div className={styles.Header}>
-                            <h1>Horários Agendados</h1>
-                            <button className={styles.refresh}>
-                                <FiRefreshCcw size={20} color="white" />
+                            <h2>Horários Agendados</h2>
+                            <button className={styles.refresh} onClick={atualizar}>
+                                <FiRefreshCcw size={30} color="black" />
                             </button>
                         </div>
 
                         <article className={styles.listarAgendamentos}>
 
 
+                            {agendamentoList.length === 0 && (
+                                <p className={styles.emptyList}>
+                                    Nenhum horário marcado foi encontrado...
+                                </p>
+                            )}
+
+                            {agendamentoList.map(item => (
 
 
-                                    {agendamentoList.map(item => (
 
-                                        <section key={item.id} className={styles.agendamentos}>
+                                <section key={item.id} className={styles.agendamentos}>
 
-                                            <button onClick={() => handleModal(item.id)}>
-                                                
-                                                <div className={styles.tag}></div>
-                                                <span className={styles.cliente}>{moment(item.data).format(" DD/MM/YYYY ")}</span>
-                                                <span> {moment(item.horario).format("HH: MM")} </span>
+                                    <button onClick={() => handleModal(item.id)}>
 
-                                            </button>
+                                        <div className={styles.tag}></div>
+                                        <span className={styles.cliente}>{moment.utc(item.horario).format(" DD/MM/YYYY ")}</span>
+                                        <span> {moment.utc(item.horario).format("HH:mm")} </span>
 
-
-                                        </section>
+                                    </button>
 
 
-                                    ))}
+                                </section>
+
+
+                            ))}
 
 
 

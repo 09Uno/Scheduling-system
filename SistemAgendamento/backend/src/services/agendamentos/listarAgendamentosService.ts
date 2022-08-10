@@ -8,14 +8,12 @@ class ListarAgendamentosService {
         const agendamentos = await prismaClient.agendamento.findMany({
             where: {
                 draft: true
-            }, orderBy: [
+            }, orderBy: 
                 {
-                    data: 'asc',
-                },
-                {
-                    horario: 'asc'
+                    horario: 'asc',
                 }
-            ],
+                
+            
         })
 
         return agendamentos

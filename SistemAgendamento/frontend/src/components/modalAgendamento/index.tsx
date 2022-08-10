@@ -10,6 +10,7 @@ import moment from 'moment';
 import { api } from "../../services/apiClient";
 import { AiFillDelete } from "react-icons/ai";
 import { MuiDialog } from '../alertas/alertaConfirma'
+import { useEffect, useState } from "react"
 
 
 
@@ -29,6 +30,10 @@ interface apagar {
 
 export function ModalAgendamentos({ isOpen, onRequestClose, agendamento }: ModalProps) {
 
+
+    const now = new Date().toISOString();
+    const dataCompare = moment(now).format(" DD/MM/YYYY ")
+
     const customStyles = {
         content: {
             top: '50%',
@@ -37,8 +42,8 @@ export function ModalAgendamentos({ isOpen, onRequestClose, agendamento }: Modal
             right: "auto%",
             padding: '30px',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: 'rgb(163 153 153 / 90%)',
-            borderRadius: '10px',
+            backgroundColor: 'rgba(56, 53, 53, 0.8)',
+            borderRadius: '0px',
         }
     }
     async function apagarAgendamento(id_delete: string) {
@@ -58,7 +63,7 @@ export function ModalAgendamentos({ isOpen, onRequestClose, agendamento }: Modal
         onRequestClose();
         apagarAgendamento(id_delete);
 
-       
+
     }
 
 
@@ -111,11 +116,12 @@ export function ModalAgendamentos({ isOpen, onRequestClose, agendamento }: Modal
                             </button>
 
                         </div>
+                      
 
                         <h2 className={styles.titulo}>Detalhes do Agendamento</h2>
                         <span>Nome do Cliente: {item.cliente.nome}</span>
-                        <span className={styles.cliente}>Data do Agendamento:{moment(item.data).format(" DD/MM/YYYY ")}</span>
-                        <span className={styles.cliente}>Horário Marcado: {moment(item.horario).format(" HH:MM ")}</span>
+                        <span className={styles.cliente}>Data do Agendamento:{moment(item.horario).format(" DD/MM/YYYY ")}</span>
+                        <span className={styles.cliente}>Horário Marcado: {moment.utc(item.horario).format(" HH:mm ")}</span>
                         <span>Observação:</span>
                         <div className={styles.descricao}>{item.descricao}</div>
 

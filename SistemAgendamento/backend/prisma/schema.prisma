@@ -39,8 +39,7 @@ model Cliente{
 model Agendamento{
 
   id String @id @default (uuid())
-  data DateTime? @db.Date
-  horario DateTime? @db.Time(6)	
+  horario DateTime? @db.Timestamp(4)	
   descricao String
   draft Boolean @default(true) 
   created_at DateTime? @default(now())

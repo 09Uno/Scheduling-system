@@ -28,7 +28,7 @@ export function Header(){
                     </Link>
 
                     <button onClick={singOut} >
-                        <FiLogOut color='#FFF' size={24} />
+                        <FiLogOut color='#FFF' size={30} />
                         
                     </button>
                 </nav>

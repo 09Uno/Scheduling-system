@@ -1,0 +1,113 @@
+.clientes {
+
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+
+    .ContainerCenter {
+        margin: auto;
+        min-height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 3rem;
+        background-color: rgba(56, 53, 53, 0.8);
+        width: 70%;
+        border-radius: 0.1rem;
+
+        .ContainerHeader {
+
+            width: 100%;
+            padding: 1rem;
+            height: 100%;
+            border-bottom: 2px solid black;
+            position: relative;
+            justify-content: center;
+
+            .ContainerHeaderDiv {
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                border-radius: 0.5rem;
+
+                .searchAdd {
+
+                    position: relative;
+                    justify-content: center;
+                    align-items: center;
+
+                    button {
+                        background: transparent;
+                        position: relative;
+                        border: none;
+                        .item {
+                            position: relative;
+                            top: 14px
+                        }
+                    }
+
+                    .search {
+                        background-color: rgb(213, 213, 213);
+                        height: 30px;
+                        width: 250px;
+                        border: 3px solid black;
+                        padding: 3px;
+                        margin-right: 13px;
+                    }
+
+                }
+            }
+
+        }
+
+        .clientesLista {
+            padding: 2rem;
+            position: relative;
+            justify-content: center;
+            margin: auto;
+            width: 100%;
+
+
+            .clientesDadosLista {
+
+                width: 100%;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                .clientesDados {
+                    width: 30%;
+                    height: 40px;
+                    max-height: 80px;
+                    display: flex;
+                    flex-direction: row;
+                    margin-right: 20px;
+                    background-color: rgba(191, 183, 183, 0.422);
+                    border: 1px solid black;
+                    margin-top: 2px;
+                    justify-content: flex-start;
+                    align-items: center;
+
+
+                    p {
+                        padding-left: 5px;
+                        margin-bottom: 1rem;
+                        padding-top: 1rem;
+                    }
+                }
+
+
+            }
+
+        }
+
+
+
+    }
+
+}

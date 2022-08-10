@@ -11,6 +11,7 @@ import { DetahesClientesController } from './controllers/clientes/detalhesClient
 import { DetalhesAgendamentoController } from './controllers/agendamentos/detalhesAgendamentosController';
 import { ListarAgendamentosController } from './controllers/agendamentos/listarAgendamentosController';
 import { ApagarAgendamentosController } from './controllers/agendamentos/apagarAgendamentosController';
+import { listarClinentesController } from './controllers/clientes/listarClientesController';
 
 const router = Router()
 
@@ -27,11 +28,12 @@ router.post('/autentificar', new AutentificarUsuarioController().handle)
 
 router.get('/cliente', EstaAutentificado ,new DetahesClientesController().handle)
 router.post('/cliente',EstaAutentificado , new CriarClienteController().handle)
-
+router.get('/cliente/listar', EstaAutentificado, new listarClinentesController().handle)
 
 router.post('/agendar', EstaAutentificado, new CriarAgendamentosController().handle)
 router.get('/agendar/detalhes', EstaAutentificado ,new DetalhesAgendamentoController().handle)
 router.get('/agendar/listar', EstaAutentificado, new ListarAgendamentosController().handle)
 router.delete('/agendar', EstaAutentificado, new ApagarAgendamentosController().handle)
+
 
 export {router}

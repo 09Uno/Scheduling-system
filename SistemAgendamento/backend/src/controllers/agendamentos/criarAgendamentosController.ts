@@ -5,12 +5,11 @@ class CriarAgendamentosController{
 
     async handle(req:Request, res:Response){
 
-        const {data, horario ,descricao, cliente_id  } = req.body
+        const { horario ,descricao, cliente_id  } = req.body
 
         const criarAgendamentosService = new CriarAgendamentosService()
 
         const agendamento = await criarAgendamentosService.execute({
-                data,
                 horario,
                 descricao,
                 cliente_id,
