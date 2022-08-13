@@ -4,12 +4,15 @@ import { Header } from "../../components/header/header"
 import { Input } from "../../components/ui/inputs/inputs"
 import { CanSSRAuth } from "../../utils/canSSRAuth"
 import { setupAPICliente } from "../../services/api"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Item } from "semantic-ui-react"
 import { AiOutlinePlus } from "react-icons/ai";
+import Modal from "react-modal"
+import { ModalCriarCliente } from "../../components/modalCriarCliente"
+import { api } from "../../services/apiClient"
 
 
-interface clienteProps {
+export type clienteProps = {
     nome: string;
     cpf: string;
     telefone: string;
@@ -22,11 +25,41 @@ interface HomeProps {
 
 export default function Clientes({ clientes }: HomeProps) {
 
+
+    const [modalItem, setModalItem] = useState<clienteProps[]>()
+    const [modalVisible, setModalVisible] = useState(false)
+
+
+
     const [clientesLista, setClienteLista] = useState(clientes || [])
     const [busca, setBusca] = useState('')
 
+
     const Lbusca = busca.toLowerCase()
     const clientesBusca = clientesLista.filter((item => item.nome.toLowerCase().includes(Lbusca) || item.cpf.toLowerCase().startsWith(Lbusca)))
+
+
+    function handleCloseModal() {
+        setModalVisible(false)
+    }
+
+    async function handleModal() {
+
+
+        setModalVisible(true)
+
+    }
+
+    async function atualizar() {
+        const api = setupAPICliente()
+        
+        const response = await api.get("/cliente/listar")
+        setClienteLista(response.data)
+
+    }
+
+    useEffect(()=> {atualizar()},[clientesLista] )
+
 
     return (
 
@@ -42,10 +75,10 @@ export default function Clientes({ clientes }: HomeProps) {
                                 <input className={styles.search} placeholder='CPF OU NOME' value={busca}
                                     onChange={(e) => setBusca(e.target.value)}
                                 />
-                                <button >
-                                   <AiOutlinePlus className={styles.item} size={40} color="black" /> 
+                                <button onClick={() => handleModal()}>
+                                    <AiOutlinePlus className={styles.item} size={40} color="black" />
                                 </button>
-                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.clientesLista}>
@@ -69,6 +102,18 @@ export default function Clientes({ clientes }: HomeProps) {
                             </section>
                         ))}
 
+
+                        {modalVisible && (
+                            <ModalCriarCliente
+
+                                isOpen={modalVisible}
+                                onRequestClose={handleCloseModal}
+                                cliente={modalItem}
+
+                            />
+                        )}
+
+                        
 
                     </div>
 

@@ -10,8 +10,7 @@ import { AuthContext } from '../contexts/AuthContext'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { canSSRGuest } from '../utils/canSSRGuess'
-
-
+import { api } from '../services/apiClient'
 
 
 export default function Home() {
@@ -51,8 +50,6 @@ export default function Home() {
 
         setLoading(false);
     }
-
-
 
     return (
 

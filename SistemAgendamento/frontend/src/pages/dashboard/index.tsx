@@ -131,7 +131,7 @@ export default function Dashboard({ agendamentos }: HomeProps) {
     )
 
 
-    useEffect(() => { atualizar() }, [agendamentoList, atualizar()])
+    useEffect(() => { atualizar() }, [agendamentoList])
 
 
     Modal.setAppElement('#__next');

@@ -9,6 +9,10 @@ import { FormEvent, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../contexts/AuthContext'
 import { canSSRGuest } from '../../utils/canSSRGuess'
+import 'react-toastify/dist/ReactToastify.css';
+import InputMask from "react-input-mask";
+
+
 
 
 
@@ -36,7 +40,7 @@ export default function Home() {
                 pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
-                });
+            });
             return;
         }
 
@@ -49,13 +53,13 @@ export default function Home() {
                 pauseOnHover: false,
                 draggable: true,
                 progress: undefined,
-                });
+            });
             return;
         }
 
         setLoading(true)
 
-        let data= {
+        let data = {
             nome,
             user,
             cpf,
@@ -79,7 +83,7 @@ export default function Home() {
 
                 <div className={styles.login}>
                     <Link href='/cadastro'>
-                        <Image src={logo} width={190} height={190} alt=""/>
+                        <Image src={logo} width={190} height={190} alt="" />
                     </Link>
                     <form onSubmit={handleSingUp}>
                         <Input
@@ -94,9 +98,12 @@ export default function Home() {
                             value={user}
                             onChange={(e) => setUser(e.target.value)}
                         />
-                        <Input
+                        <InputMask
+                            className={styles.input}
                             type="text"
                             placeholder='Digite seu CPF '
+                            mask="999.999.999-99"
+                            maskPlaceholder=""
                             pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                             title="Digite o CPF no formato xxx.xxx.xxx-xx"
                             value={cpf}
@@ -141,6 +148,6 @@ export default function Home() {
 }
 export const getServerSideProps = canSSRGuest(async (ctx) => {
     return {
-      props: {}
+        props: {}
     }
-  })
+})
