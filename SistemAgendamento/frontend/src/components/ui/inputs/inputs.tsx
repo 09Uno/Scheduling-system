@@ -15,6 +15,6 @@ export function Input({...rest}: InputProps){
 
 export function TextArea({...rest} :TextAreaProps){
     return (
-        <textarea className={styles.textArea}></textarea>
+        <textarea className={styles.textArea}{...rest}></textarea>
     )
 }
