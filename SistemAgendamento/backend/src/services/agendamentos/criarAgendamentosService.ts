@@ -19,6 +19,12 @@ class CriarAgendamentosService {
                 horario: horario,
                 descricao: descricao,
                 cliente_id : cliente_id,
+               
+            },select:{
+                id: true,
+                horario: true,
+                descricao: true,
+                cliente_id : true,
             }
         })
 

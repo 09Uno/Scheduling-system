@@ -12,6 +12,7 @@ import { api } from "../../services/apiClient";
 type AgendamentosProps = {
     id: string;
     horario: string;
+    descricao: string;
     cliente_id: string;
 
 }
