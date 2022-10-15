@@ -3,7 +3,7 @@ Aplicação completa com back e frontend
 
 Sistema de agendamento de clientes para estabelecimentos como barbearias</br >
 
-As Principais funcionalidades buscadas ao iniciar o projeto foram fiznalizadas, faltando apenas corrigir pequenos bugs e adcionar pequenas</br >
+As Principais funcionalidades buscadas ao iniciar o projeto foram finalizadas, faltando apenas corrigir pequenos bugs e adcionar pequenas</br >
 melhorarias que podem deixar a aplicação mais fácil de se utilizar.</br >
 
 1 - faça a instalação do gerenciador de pacotes yarn; </br >
